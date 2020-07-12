@@ -82,8 +82,8 @@
 
         <div class="card-columns">
             <th:block th:each="message : ${messages}">
-                <div class="card my-3" style="width: 18rem;">
-                <img class="card-img-top" th:if="${message.getFilename()!=null}" th:src="@{'uploads/' + ${message.getFilename()}}"/>
+                <div class="card my-3">
+                <img class="card-img-top" th:if="${message.getFilename()!=null}" th:src="@{'/img/' + ${message.getFilename()}}"/>
                 <div class="m-2">
                     <span th:text="${message.getText()}"> Текст </span>
                 </div>
