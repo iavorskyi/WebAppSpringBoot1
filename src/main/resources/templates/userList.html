@@ -3,29 +3,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User LIst</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>User LIst</title>
 
 </head>
 <body>
-<h2>Список пользователей</h2>
-<table border="1">
-    <tr>
-        <th>id</th>
-        <th>Имя</th>
-        <th>Роль</th>
-    </tr>
-    <tr th:each="user : ${userList}">
-        <td th:utext="${user.getId()}"/>
-        <td th:utext="${user.getUsername()}"/>
-        <th:block th:each = "role : ${user.getRoles()}">
-        <td th:utext="${role}"/>
-        </th:block>
-        <td><a th:href="'/user/' + ${user.getId()}">edit</a> </td>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">WebAppSpBoot 1</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    </tr>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/main">Сообщения</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/user">Пользователи</a>
+                </li>
+            </ul>
+            <div class="navbar-text"><span th:text="${username}"></span> </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Список пользователей</h2>
+        <div>
+            <table border="1">
+                <tr>
+                    <th>id</th>
+                    <th>Имя</th>
+                    <th>Роль</th>
+                </tr>
+                <tr th:each="user : ${userList}">
+                    <td th:utext="${user.getId()}"/>
+                    <td th:utext="${user.getUsername()}"/>
+                    <th:block th:each = "role : ${user.getRoles()}">
+                    <td th:utext="${role}"/>
+                    </th:block>
+                    <td><a th:href="'/user/' + ${user.getId()}">edit</a> </td>
 
-</table>
+                </tr>
+            </table>
+        </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
