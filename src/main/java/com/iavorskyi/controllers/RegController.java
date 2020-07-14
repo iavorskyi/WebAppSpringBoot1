@@ -43,11 +43,10 @@ public class RegController {
         boolean isActivated = userService.activateUser(code);
 
         if(isActivated){
-            message = "User is activated";
+            model.addAttribute("message", "User is activated");
         }
-        else message = "Activation error";
-
-        model.addAttribute("message", message);
+        else
+            model.addAttribute("message", "Activation error");
         return "login";
     }
 }
