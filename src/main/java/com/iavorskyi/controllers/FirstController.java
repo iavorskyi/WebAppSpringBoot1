@@ -75,14 +75,14 @@ public class FirstController {
                 uploadDir.mkdir();
             String uuidFile = UUID.randomUUID().toString();
             String resultFileName = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFileName));
+            file.transferTo(new File("/C:/"+ uploadPath + "/" + resultFileName));
             message.setFilename(resultFileName);
 
         }
         messageRepo.save(message);
         Iterable<Message> messages = messageRepo.findAll();
         model.addAttribute("messages", messages);
-        return "main";
+        return "redirect:/main";
     }
     @PostMapping("/delete")
     public String delete(@RequestParam Long id){

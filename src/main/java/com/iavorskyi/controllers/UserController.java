@@ -5,7 +5,6 @@ import com.iavorskyi.domain.User;
 import com.iavorskyi.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,16 +35,11 @@ public class UserController {
         return "userList";
     }
     @GetMapping ("{userId}")
-    public String userEdit(@PathVariable Long userId, Model model, Principal principal){
-        if(principal!=null) {
-            String name = principal.getName();//get logged in username
-            model.addAttribute("username", name);
-            User user = userRepo.findByUsername(name);
-            model.addAttribute("user", user);
-        }
+    public String userEdit(@PathVariable Long userId, Model model) {
         User user = userRepo.getOne(userId);
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
+        model.addAttribute("username", user.getUsername());
         return "editUser";
     }
 
@@ -59,12 +53,12 @@ public class UserController {
         user.setUsername(username);
 
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
+        user.getRoles().clear();
         for (String key: form.keySet()) {
             if(roles.contains(key)){
                 user.getRoles().add(Role.valueOf(key));
             }
         }
-
         userRepo.save(user);
         return "redirect:/user";
     }

@@ -30,24 +30,37 @@
                 </li>
             </ul>
             <div class="navbar-text"><span th:text="${username}"></span> </div>
+            <div class="col-sm-3 ml-1">
+                <form th:action="@{/logout}" method="post">
+                    <input th:if="${username!=null}"  type="submit" class="btn btn-primary" value="Выйти"/>
+                </form>
+            </div>
         </div>
     </nav>
     <div class="container mt-4">
         <h2>Список пользователей</h2>
         <div>
             <table border="1">
-                <tr>
-                    <th>id</th>
-                    <th>Имя</th>
-                    <th>Роль</th>
-                </tr>
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Эмейл</th>
+                        <th scope="col">Роль</th>
+                        <th scope="col"> </th>
+                    </tr>
+                    </thead>
                 <tr th:each="user : ${userList}">
                     <td th:utext="${user.getId()}"/>
                     <td th:utext="${user.getUsername()}"/>
-                    <th:block th:each = "role : ${user.getRoles()}">
-                    <td th:utext="${role}"/>
-                    </th:block>
-                    <td><a th:href="'/user/' + ${user.getId()}">edit</a> </td>
+                    <td th:utext="${user.getMail()}"/>
+                    <td>
+                        <th:block th:each = "role : ${user.getRoles()}"
+                                  th:utext="${role} + ' '"> </th:block>
+                    </td>
+                    <td> <a th:href="'/user/' + ${user.getId()}">edit</a></td>
+
 
                 </tr>
             </table>

@@ -1,22 +1,21 @@
 package com.iavorskyi.controllers;
 
-import com.iavorskyi.domain.Role;
 import com.iavorskyi.domain.User;
 import com.iavorskyi.repos.UserRepo;
+import com.iavorskyi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Collections;
 
 @Controller
 public class RegController {
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/registration")
     public String registration(Model model, Principal principal) {
@@ -30,18 +29,25 @@ public class RegController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Model model) {
-        User userFromDb = userRepo.findByUsername(user.getUsername());
-
-        if (userFromDb != null) {
+    public String addUser(@ModelAttribute("user") User user, Model model) {
+        if (!userService.addUser(user)) {
             model.addAttribute("message", "User exists!");
-            return "registration";
+        return "registration";
         }
-
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
-
         return "redirect:/login";
+    }
+
+    @GetMapping("/activate/{code}")
+    public String activate( Model model, @PathVariable String code){
+        String message;
+        boolean isActivated = userService.activateUser(code);
+
+        if(isActivated){
+            message = "User is activated";
+        }
+        else message = "Activation error";
+
+        model.addAttribute("message", message);
+        return "login";
     }
 }
