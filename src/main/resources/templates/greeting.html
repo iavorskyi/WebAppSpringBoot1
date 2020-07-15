@@ -25,6 +25,9 @@
                     <a class="nav-link" href="/main">Сообщения</a>
                 </li>
                 <li class="nav-item ">
+                    <a th:if="${user!=null}" class="nav-link" href="/user/profile">Профайл</a>
+                </li>
+                <li class="nav-item ">
                     <th:block th:if="${user}!=null">
                     <a th:if="${user.isAdmin()}" class="nav-link" href="/user">Пользователи</a>
                     </th:block>
@@ -42,6 +45,10 @@
     <div class="container mt-4">
         <h4>Добро пожаловать на WebAppStringBoot!</h4>
         <p>Это просто приложение для создания сообщений</p>
+        <div>
+            <a th:if="${username==null}"  type="button" href="/login" class="btn btn-primary" value="Войти">Войти</a>
+            <a th:if="${username==null}"  type="button" href="/registration" class="btn btn-primary" value="Войти">Регистрация</a>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

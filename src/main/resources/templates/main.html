@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,6 +22,9 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="/main">Сообщения</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/user/profile">Профайл</a>
                 </li>
                 <th:block th:if="${user}!=null">
                     <a th:if="${user.isAdmin()}" class="nav-link" href="/user">Пользователи</a>
