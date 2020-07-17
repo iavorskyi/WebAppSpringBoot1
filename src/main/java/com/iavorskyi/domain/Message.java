@@ -1,14 +1,20 @@
 package com.iavorskyi.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
 
 @Entity // This tells Hibernate to make a table out of this class
-@SuppressWarnings("JpaAttributeTypeInspection")
 public class Message {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private String text;
+
+    @NotBlank(message = "Please, fill the text")
+    @Length(max = 256, message = "The message is too long")
+    public String text;
     private String tag;
     private String filename;
 

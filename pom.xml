@@ -71,6 +71,14 @@
         <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
 
+<!--&lt;!&ndash;    Validation&ndash;&gt;-->
+<!--    <dependency>-->
+<!--        <groupId>javax.validation</groupId>-->
+<!--        <artifactId>validation-api</artifactId>-->
+<!--        <version>1.0.0.GA</version>-->
+<!--    </dependency>-->
+<!--    -->
+
 
     <!--    Test-->
     <dependency>
@@ -83,6 +91,11 @@
                 <artifactId>junit-vintage-engine</artifactId>
             </exclusion>
         </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>6.0.18.Final</version>
     </dependency>
 
 </dependencies>

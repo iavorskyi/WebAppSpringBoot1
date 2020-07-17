@@ -49,6 +49,7 @@
                        th:value="${_csrf.token}" />
 
                 <button type="submit" class="btn btn-primary">Поиск</button>
+
             </form>
         </div>
         <a class="btn btn-primary mt-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -58,7 +59,9 @@
             <div class="form-group mt-4">
                 <form method="post" enctype="multipart/form-data" >
                     <div class="form-group">
-                        <input type="text" class="form-control" name="text" placeholder="введите текст" >
+                        <input type="text" th:class="${textError} ? 'form-control is-invalid' : 'form-control ' "
+                               name="text" placeholder="введите текст" th:value="${message}!=null? ${message.text}: '' " >
+                        <th:span  class="invalid-feedback" th:text="${textError}"/>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" name="tag" placeholder="укажите тэг">

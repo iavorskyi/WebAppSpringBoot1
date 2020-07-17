@@ -86,19 +86,24 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveProfile(String password, String mail, User user) {
-        String userMail = user.getMail();
-        boolean isEmailChanged = (mail != null && !userMail.equals(mail)) || (userMail != null && userMail.equals(mail));
-        if(isEmailChanged) {
-            user.setMail(mail);
-            if (!StringUtils.isEmpty(mail)) {
-                user.setActivationCode(UUID.randomUUID().toString());
+        String userMail = "";
+        if(user.getMail()!=null) {
+            userMail = user.getMail();
+        }
 
+            boolean isEmailChanged = (mail != null && !userMail.equals(mail)) || (userMail != null && userMail.equals(mail));
+            if (isEmailChanged) {
+                user.setMail(mail);
+                if (!StringUtils.isEmpty(mail)) {
+                    user.setActivationCode(UUID.randomUUID().toString());
+
+                }
             }
-        }
-        if(!StringUtils.isEmpty(password)){
-            user.setPassword(password);
-        }
-        userRepo.save(user);
-        if(isEmailChanged) sendMessage(user);
+
+            if (!StringUtils.isEmpty(password)) {
+                user.setPassword(password);
+            }
+            userRepo.save(user);
+            if (isEmailChanged) sendMessage(user);
     }
 }

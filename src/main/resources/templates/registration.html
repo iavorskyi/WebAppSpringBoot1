@@ -24,12 +24,7 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="/main">Сообщения</a>
                 </li>
-                <li class="nav-item ">
-                    <a th:if="${user!=null}" class="nav-link" href="/user/profile">Профайл</a>
-                </li>
-                <th:block th:if="${user}!=null">
-                    <a th:if="${user.isAdmin()}" class="nav-link" href="/user">Пользователи</a>
-                </th:block>
+
             </ul>
             <div class="navbar-text"><span th:text="${username}"></span> </div>
         </div>
@@ -42,23 +37,33 @@
         <span th:if="${param.logout}">
             You have been logged out.
         </span>
-        <form th:action="@{/registration}" method="post" th:modelAttribute="user">
+        <form th:action="@{/registration}" method="post">
             <div class="form-group row ml-1">
                 <label class="col-sm-3 col-form-label"> Имя Пользователя :</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="username" placeholder="input 'user name'"/>
+                    <input type="text" th:class="${usernameError}!=null? 'form-control is-invalid' : 'form-control'"
+                           th:value="${user}? ${user.getUsername()}: ''"
+                           name="username" placeholder="input 'user name'" >
+                    <th:span  class="invalid-feedback" th:text="${usernameError}"/>
                 </div>
             </div>
+
             <div class="form-group row ml-1">
                 <label class="col-sm-3 col-form-label"> Пароль: </label>
                 <div class="col-sm-6">
-                    <input type="password" class="form-control" name="password" placeholder="password"/>
+                    <input type="password" th:class="${passwordError}!=null? 'form-control is-invalid' : 'form-control'"
+                           name="password" placeholder="password" >
+                    <th:span  class="invalid-feedback" th:text="${passwordError}"/>
                 </div>
             </div>
+
             <div class="form-group row ml-1">
                 <label class="col-sm-3 col-form-label"> Email </label>
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" name="mail" placeholder="example@mail.com"/>
+                    <input type="email" th:class="${mailError}!=null? 'form-control is-invalid' : 'form-control'"
+                           th:value="${user}? ${user.getMail()}: null"
+                           name="mail" placeholder="example@mail.com" >
+                    <th:span  class="invalid-feedback" th:text="${mailError}"/>
                 </div>
             </div>
 
